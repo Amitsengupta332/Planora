@@ -1,3 +1,1 @@
-export const AuthSearchableFields = [
-    // Add searchable fields here
-    ];
+export const UserSearchableFields = ['name, email'];
