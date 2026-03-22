@@ -1,3 +1,1 @@
-export const EventSearchableFields = [
-    // Add searchable fields here
-    ];
+export const EventSearchableFields = ['title', 'description', 'venue'];
