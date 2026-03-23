@@ -2,6 +2,7 @@ import { Router } from "express";
 import { AuthRoutes } from "../modules/Auth/auth.route";
 import { UserRoutes } from "../modules/User/user.route";
 import { EventRoutes } from "../modules/Event/event.route";
+import { ParticipationRoutes } from "../modules/Participation/participation.route";
 
 type TModuleRoutes = {
   path: string;
@@ -22,6 +23,10 @@ const moduleRoutes: TModuleRoutes[] = [
   {
     path: "/events",
     route: EventRoutes,
+  },
+  {
+    path: "/participations",
+    route: ParticipationRoutes,
   },
 
   //   {

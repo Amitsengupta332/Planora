@@ -1,6 +1,16 @@
-import { MAX_UPLOAD_SIZE } from '../../constants';
-// import { z } from 'zod';
+import { z } from "zod";
 
-export const participationValidationSchema = {
-    // Add validation schemas here
-    };
+const joinEventValidationSchema = z.object({
+  body: z.object({}).optional(),
+});
+
+const updateParticipationStatusValidationSchema = z.object({
+  body: z.object({
+    status: z.enum(["APPROVED", "REJECTED", "BANNED"]),
+  }),
+});
+
+export const ParticipationValidations = {
+  joinEventValidationSchema,
+  updateParticipationStatusValidationSchema,
+};
