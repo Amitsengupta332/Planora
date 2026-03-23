@@ -3,42 +3,42 @@ import { USER_ROLE } from "../modules/User/user.utils";
 import catchAsync from "../utils/catchAsync";
 import AppError from "../errors/AppError";
 import httpStatus from "http-status";
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { prisma } from "../lib/prisma";
 import config from "../config";
 
- const auth = (...requiredRoles: (keyof typeof USER_ROLE)[]) => {
+const auth = (...requiredRoles: string[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization;
+    const authHeader = req.headers.authorization;
 
-    // checking if the token is missing or not provided
-    if (!token) {
-      throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
+    if (!authHeader) {
+      throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized!");
     }
 
-    // checking if the given token is valid
+    const token = authHeader.startsWith("Bearer ")
+      ? authHeader.split(" ")[1]
+      : authHeader;
+
     const decoded = jwt.verify(
       token,
-      config.jwt_access_secret as string,
+      config.jwt_access_secret as string
     ) as JwtPayload;
 
     const { role, email } = decoded;
 
-    // checking if the user is exist
-    const user = await prisma.user.findUnique({ where: { email } });
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
 
     if (!user) {
-      throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
+      throw new AppError(httpStatus.NOT_FOUND, "This user is not found!");
     }
 
-    if (requiredRoles && !requiredRoles.includes(role)) {
-      throw new AppError(
-        httpStatus.UNAUTHORIZED,
-        'You are not authorized!',
-      );
+    if (requiredRoles.length && !requiredRoles.includes(role)) {
+      throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized!");
     }
 
-    req.user = decoded as JwtPayload & { role: string };
+    req.user = decoded as JwtPayload & { role: string; id: string; email: string };
     next();
   });
 };
