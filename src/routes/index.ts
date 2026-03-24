@@ -3,6 +3,7 @@ import { AuthRoutes } from "../modules/Auth/auth.route";
 import { UserRoutes } from "../modules/User/user.route";
 import { EventRoutes } from "../modules/Event/event.route";
 import { ParticipationRoutes } from "../modules/Participation/participation.route";
+import { ReviewRoutes } from "../modules/Review/review.route";
 
 type TModuleRoutes = {
   path: string;
@@ -27,6 +28,10 @@ const moduleRoutes: TModuleRoutes[] = [
   {
     path: "/participations",
     route: ParticipationRoutes,
+  },
+  {
+    path: "/reviews",
+    route: ReviewRoutes,
   },
 
   //   {
