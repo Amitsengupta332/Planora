@@ -4,6 +4,7 @@ import { UserRoutes } from "../modules/User/user.route";
 import { EventRoutes } from "../modules/Event/event.route";
 import { ParticipationRoutes } from "../modules/Participation/participation.route";
 import { ReviewRoutes } from "../modules/Review/review.route";
+import { PaymentRoutes } from "../modules/Payment/payment.route";
 
 type TModuleRoutes = {
   path: string;
@@ -34,12 +35,14 @@ const moduleRoutes: TModuleRoutes[] = [
     route: ReviewRoutes,
   },
 
-  //   {
-  //     path: '/payments',
-  //     route: PaymentRoutes,
-  //   },
+  {
+    path: "/payments",
+    route: PaymentRoutes,
+  },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
 
 export default router;
+
+// https://libraries.io/npm/@bayajidalam%2Fapollo-cli
