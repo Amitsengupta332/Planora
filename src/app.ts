@@ -29,25 +29,31 @@
 
 // export default app;
 
-import express, { Application, Request, Response } from 'express';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
-import globalErrorHandler from './middlewares/globalErrorhandler';
-import notFound from './middlewares/notfound';
-import router from './routes';
+import express, { Application, Request, Response } from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import globalErrorHandler from "./middlewares/globalErrorhandler";
+import notFound from "./middlewares/notfound";
+import router from "./routes";
 
 const app: Application = express();
 
 // parsers
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  }),
+);
 app.use(cookieParser());
 
 // routes
-app.use('/api/v1', router);
+app.use("/api/v1", router);
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello from Apollo Gears World!');
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hello from Apollo Gears World!");
 });
 
 // not found

@@ -20,7 +20,7 @@ router.get(
   "/event/:eventId",
   auth(USER_ROLE.ADMIN, USER_ROLE.USER),
   ParticipationController.getParticipantsByEvent
-);
+); 
 
 router.patch(
   "/:id/approve",
