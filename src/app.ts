@@ -43,7 +43,11 @@ app.use(express.json());
 // app.use(cors());
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: [
+      "http://localhost:3000",
+      "https://planora-frontend-5jtyneiez-amitsengupta332s-projects.vercel.app",
+      "https://planora-frontend-psi.vercel.app",
+    ],
     credentials: true,
   }),
 );
